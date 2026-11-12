@@ -5,7 +5,7 @@
 > **Một quyết định = bốn ý:** đã cân nhắc phương án nào · chọn phương án nào · vì sao · loại các phương án kia vì sao. Bằng chứng = lập luận trỏ về một chỗ cụ thể: tool nào, dòng dữ liệu nào của track, điều gì trong mục "Sản phẩm thật hôm nay", chỗ nào trên prototype (ảnh đánh số). Không chạy agent.
 
 
-# Bài nộp LAB5 — [Track] · Nhóm [tên]
+# Bài nộp LAB5 — T3 · Nhóm 3ChangLinhNguLam
 
 **Lớp:** Lab2A H209 · **Bàn / zone:** B2 · **Track:** T3
 
@@ -16,9 +16,12 @@
 | Nguyễn Tuấn Hiếu | 2A202603374 |  |
 
 ## §1. Lát cắt & phạm vi
-- Lát cắt: Trong **Đặt chỗ của tôi**, khi **hành khách** vừa nhận tin chuyến bay bị huỷ và nhắn hỏi, **AI đề xuất và giữ chỗ chuyến thay thế, hỏi lại cho rõ, đổi vé, hay chuyển nhân viên**, để khách tới nơi kịp mà không mất vé hay tiền vì một thao tác không đảo lại được.
 
-- 3 việc tính năng KHÔNG làm, mỗi việc một câu vì sao.
+Trong **Đặt chỗ của tôi**, khi **hành khách** vừa nhận tin chuyến bay bị huỷ và nhắn hỏi, **AI đề xuất và giữ chỗ chuyến thay thế, hỏi lại cho rõ, đổi vé, hay chuyển nhân viên**, để khách tới nơi kịp mà không mất vé hay tiền vì một thao tác không đảo lại được.
+
+Hiện tại khách tự chọn hành khách, chuyến và xác nhận qua luồng đổi lịch; trợ lý được đề xuất, tạm giữ và chỉ thực hiện đổi sau xác nhận rõ. BM 213 bị hủy do bão; đặt chỗ có An và Bình 5 tuổi. BM 217 còn một chỗ, BM 201 còn chín, BM 205 còn bốn. Chính sách hãng dựng: một lần đổi miễn phí trong 48 giờ hoặc hoàn toàn bộ, không bồi thường tiền mặt khi hủy do thời tiết.
+
+Ba việc không làm: (1) tự đổi tên hành khách vì ngoài thẩm quyền và không có tool; (2) quyết định cho trẻ bay một mình vì cần nhân viên xử lý; (3) tự hứa hoặc chi trả bồi thường vì không có tool và dữ liệu cho ca bão không cho phép.
 
 ## §2. Kịch bản rủi ro  (chặng 2)
 | Mã · tin nhắn | Lớp | AI có thể sai, căn cứ cụ thể | Xử lý tốt | Mức hại |
@@ -41,16 +44,147 @@
 - **Thấy và làm tiếp:** danh sách giờ/chỗ, căn cứ chính sách, trạng thái giữ và đếm ngược; xem trước BM 201, kiểm tra tên và xác nhận, bỏ giữ hoặc gặp nhân viên. Hết giờ thì tự nhả và khóa xác nhận đổi cho tới khi kiểm tra lại.
 - **Ai được báo:** không tự báo nhân viên chỉ vì câu mơ hồ; khi khách bấm chuyển hoặc báo đổi nhầm, gửi yêu cầu ngay cùng đặt chỗ, lựa chọn và trạng thái. Thời gian phản hồi chưa xác định.
 - **Quyết định:** hỏi lại và tạm giữ có thể đảo. Loại tự đổi vì “đổi đi” chưa xác định đủ; loại chờ nhân viên cho mọi yêu cầu vì có thể hết chỗ. Đây là **lỗi ngữ cảnh** nếu hệ thống hiểu câu chung như chỉ thị cụ thể: không đổ lỗi cho khách; cần cổng xác nhận, không chỉ thêm lời xin lỗi.
-## §4. Mức tự chủ  (chặng 4)
-Với mỗi tool:
-- Mức của nhóm (tự làm / cần người duyệt / cấm). Nếu cần người duyệt: ai duyệt · người duyệt thấy gì · quá hạn thì sao.
-- Lý do theo cost-of-error: sai thì ai chịu gì · đảo lại được không · chờ người thì mất gì.
-- Phương án đã cân nhắc và vì sao loại.
-Thêm:
-- Tool khó xếp nhất: mỗi người từng chọn gì, cái giá của mỗi phía (trỏ về kịch bản ở §2), nhóm chốt thế nào.
-- Thử mức đã đặt trên 2 kịch bản đắt nhất + 1 kịch bản bình thường: cái sai có bị chặn không? còn việc nào làm khi lẽ ra phải hỏi? người dùng bình thường có phải chờ vô ích không?
-- Luật thêm hoặc tool tách bước (nếu có), và vì sao.
-- Một mức tự chủ đã đổi lời hứa nào với người dùng.
+## §4. Mức tự chủ
+
+| Tool | Mức và giải thích cái giá | Phương án loại |
+|---|---|---|
+| `tra_cuu_dat_cho` | **Tự làm** trong đặt chỗ được chọn: chỉ đọc, sai thông tin làm khách hiểu nhầm nên ghi thời điểm dữ liệu. Chờ người sẽ mất thời gian tìm chỗ. | Duyệt mọi lần đọc gây chậm không cần thiết. |
+| `giu_cho_chuyen_moi` | **Tự làm có điều kiện**: giữ BM 201 cho cả hai tối đa 20 phút, thông báo ngay và cho bỏ giữ; giữ không đổi vé và tự hết hạn. Sai có thể chiếm chỗ tạm, khách có thể bỏ; chờ duyệt có thể mất chỗ. Chỉ một lựa chọn đủ chỗ, không tự tách trẻ. | Cấm giữ khiến khách gấp mất cơ hội; giữ vô hạn gây ảnh hưởng khách khác. |
+| `doi_chuyen_bay` | **Cần khách duyệt**: xem mã/giờ/chuyến, từng hành khách và mất lần đổi miễn phí; kiểm tra chỗ còn hiệu lực. Không xác nhận hoặc hết giữ thì không đổi. Sai khó đảo, khách lỡ chuyến; chờ có thể hết chỗ nên giữ tạm. | Tự đổi dù mơ hồ quá rủi ro; cấm hoàn toàn bắt mọi khách chờ nhân viên. |
+| `gui_yeu_cau_hoan_ve` | **Cần khách duyệt sau khi nhân viên xác minh** nơi nhận và thời gian; người duyệt thấy chuyến, hành khách, số tiền theo chính sách, cảnh báo không hủy được. Thiếu dữ liệu, quá hạn hoặc không xác nhận: không gửi, chuyển/giữ hồ sơ cho nhân viên. Sai không đảo được; chờ làm khách chậm nhận tiền. | Tự gửi không chặn được sai ý; cấm hoàn toàn từ chối quyền hoàn trong đề. Prototype chưa thực hiện tool này. |
+| `chuyen_nhan_vien` | **Tự làm** khi báo đổi nhầm hoặc gặp ca ngoài thẩm quyền; chuyển được, sai chủ yếu tốn thời gian nhân viên. Thông báo chưa biết thời gian phản hồi. | Bắt duyệt thêm khi khách báo sai làm chậm khắc phục. |
+
+**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. **Ý kiến ban đầu từng thành viên: [nhóm bổ sung sau thảo luận; không ghi thay].**
+
+**Thử quy tắc:**
+
+| Ca | Sai có bị chặn? | Còn việc phải hỏi? | Chờ vô ích? |
+|---|---|---|---|
+| A | Có: chưa xác nhận thì không đổi | Hỏi chuyến và người; giữ tạm không phải đổi | Không chờ nhân viên; giữ chỉ 20 phút |
+| B | Có: không gửi khi thiếu thông tin/duyệt | Phải## §4. Mức tự chủ
+
+| Tool | Mức và giải thích cái giá | Phương án loại |
+|---|---|---|
+| `tra_cuu_dat_cho` | **Tự làm** trong đặt chỗ được chọn: chỉ đọc, sai thông tin làm khách hiểu nhầm nên ghi thời điểm dữ liệu. Chờ người sẽ mất thời gian tìm chỗ. | Duyệt mọi lần đọc gây chậm không cần thiết. |
+| `giu_cho_chuyen_moi` | **Tự làm có điều kiện**: giữ BM 201 cho cả hai tối đa 20 phút, thông báo ngay và cho bỏ giữ; giữ không đổi vé và tự hết hạn. Sai có thể chiếm chỗ tạm, khách có thể bỏ; chờ duyệt có thể mất chỗ. Chỉ một lựa chọn đủ chỗ, không tự tách trẻ. | Cấm giữ khiến khách gấp mất cơ hội; giữ vô hạn gây ảnh hưởng khách khác. |
+| `doi_chuyen_bay` | **Cần khách duyệt**: xem mã/giờ/chuyến, từng hành khách và mất lần đổi miễn phí; kiểm tra chỗ còn hiệu lực. Không xác nhận hoặc hết giữ thì không đổi. Sai khó đảo, khách lỡ chuyến; chờ có thể hết chỗ nên giữ tạm. | Tự đổi dù mơ hồ quá rủi ro; cấm hoàn toàn bắt mọi khách chờ nhân viên. |
+| `gui_yeu_cau_hoan_ve` | **Cần khách duyệt sau khi nhân viên xác minh** nơi nhận và thời gian; người duyệt thấy chuyến, hành khách, số tiền theo chính sách, cảnh báo không hủy được. Thiếu dữ liệu, quá hạn hoặc không xác nhận: không gửi, chuyển/giữ hồ sơ cho nhân viên. Sai không đảo được; chờ làm khách chậm nhận tiền. | Tự gửi không chặn được sai ý; cấm hoàn toàn từ chối quyền hoàn trong đề. Prototype chưa thực hiện tool này. |
+| `chuyen_nhan_vien` | **Tự làm** khi báo đổi nhầm hoặc gặp ca ngoài thẩm quyền; chuyển được, sai chủ yếu tốn thời gian nhân viên. Thông báo chưa biết thời gian phản hồi. | Bắt duyệt thêm khi khách báo sai làm chậm khắc phục. |
+
+**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. **Ý kiến ban đầu từng thành viên: [nhóm bổ sung sau thảo luận; không ghi thay].**
+
+**Thử quy tắc:**
+## §4. Mức tự chủ
+
+| Tool | Mức và giải thích cái giá | Phương án loại |
+|---|---|---|
+| `tra_cuu_dat_cho` | **Tự làm** trong đặt chỗ được chọn: chỉ đọc, sai thông tin làm khách hiểu nhầm nên ghi thời điểm dữ liệu. Chờ người sẽ mất thời gian tìm chỗ. | Duyệt mọi lần đọc gây chậm không cần thiết. |
+| `giu_cho_chuyen_moi` | **Tự làm có điều kiện**: giữ BM 201 cho cả hai tối đa 20 phút, thông báo ngay và cho bỏ giữ; giữ không đổi vé và tự hết hạn. Sai có thể chiếm chỗ tạm, khách có thể bỏ; chờ duyệt có thể mất chỗ. Chỉ một lựa chọn đủ chỗ, không tự tách trẻ. | Cấm giữ khiến khách gấp mất cơ hội; giữ vô hạn gây ảnh hưởng khách khác. |
+| `doi_chuyen_bay` | **Cần khách duyệt**: xem mã/giờ/chuyến, từng hành khách và mất lần đổi miễn phí; kiểm tra chỗ còn hiệu lực. Không xác nhận hoặc hết giữ thì không đổi. Sai khó đảo, khách lỡ chuyến; chờ có thể hết chỗ nên giữ tạm. | Tự đổi dù mơ hồ quá rủi ro; cấm hoàn toàn bắt mọi khách chờ nhân viên. |
+| `gui_yeu_cau_hoan_ve` | **Cần khách duyệt sau khi nhân viên xác minh** nơi nhận và thời gian; người duyệt thấy chuyến, hành khách, số tiền theo chính sách, cảnh báo không hủy được. Thiếu dữ liệu, quá hạn hoặc không xác nhận: không gửi, chuyển/giữ hồ sơ cho nhân viên. Sai không đảo được; chờ làm khách chậm nhận tiền. | Tự gửi không chặn được sai ý; cấm hoàn toàn từ chối quyền hoàn trong đề. Prototype chưa thực hiện tool này. |
+| `chuyen_nhan_vien` | **Tự làm** khi báo đổi nhầm hoặc gặp ca ngoài thẩm quyền; chuyển được, sai chủ yếu tốn thời gian nhân viên. Thông báo chưa biết thời gian phản hồi. | Bắt duyệt thêm khi khách báo sai làm chậm khắc phục. |
+
+**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. **Ý kiến ban đầu từng thành viên: [nhóm bổ sung sau thảo luận; không ghi thay].**
+
+**Thử quy tắc:**
+
+| Ca | Sai có bị chặn? | Còn việc phải hỏi? | Chờ vô ích? |
+|---|---|---|---|
+| A | Có: chưa xác nhận thì không đổi | Hỏi chuyến và người; giữ tạm không phải đổi | Không chờ nhân viên; giữ chỉ 20 phút |
+| B | Có: không gửi khi thiếu thông tin/duyệt | Phải xác minh nơi, thời gian và xác nhận từng người | Có thể phải chờ nhân viên; cần thiết vì không thể rút hoàn |
+| Bình thường: hỏi chuyến còn chỗ | Chỉ đọc; không đổi | Không cần hỏi nếu chỉ liệt kê | Không phải chờ nhân viên |
+
+**Luật thêm:** tách đề xuất/giữ tạm khỏi đổi; kiểm tra lại đủ chỗ, thời hạn giữ và xác nhận chuyến + từng người tại thời điểm đổi. Nếu dữ liệu thay đổi, dừng và hỏi lại. Lời hứa chuyển từ “AI đổi giúp ngay” thành “AI giữ tạm và chỉ đổi sau khi bạn xác nhận rõ”.## §4. Mức tự chủ
+
+| Tool | Mức và giải thích cái giá | Phương án loại |
+|---|---|---|
+| `tra_cuu_dat_cho` | **Tự làm** trong đặt chỗ được chọn: chỉ đọc, sai thông tin làm khách hiểu nhầm nên ghi thời điểm dữ liệu. Chờ người sẽ mất thời gian tìm chỗ. | Duyệt mọi lần đọc gây chậm không cần thiết. |
+| `giu_cho_chuyen_moi` | **Tự làm có điều kiện**: giữ BM 201 cho cả hai tối đa 20 phút, thông báo ngay và cho bỏ giữ; giữ không đổi vé và tự hết hạn. Sai có thể chiếm chỗ tạm, khách có thể bỏ; chờ duyệt có thể mất chỗ. Chỉ một lựa chọn đủ chỗ, không tự tách trẻ. | Cấm giữ khiến khách gấp mất cơ hội; giữ vô hạn gây ảnh hưởng khách khác. |
+| `doi_chuyen_bay` | **Cần khách duyệt**: xem mã/giờ/chuyến, từng hành khách và mất lần đổi miễn phí; kiểm tra chỗ còn hiệu lực. Không xác nhận hoặc hết giữ thì không đổi. Sai khó đảo, khách lỡ chuyến; chờ có thể hết chỗ nên giữ tạm. | Tự đổi dù mơ hồ quá rủi ro; cấm hoàn toàn bắt mọi khách chờ nhân viên. |
+| `gui_yeu_cau_hoan_ve` | **Cần khách duyệt sau khi nhân viên xác minh** nơi nhận và thời gian; người duyệt thấy chuyến, hành khách, số tiền theo chính sách, cảnh báo không hủy được. Thiếu dữ liệu, quá hạn hoặc không xác nhận: không gửi, chuyển/giữ hồ sơ cho nhân viên. Sai không đảo được; chờ làm khách chậm nhận tiền. | Tự gửi không chặn được sai ý; cấm hoàn toàn từ chối quyền hoàn trong đề. Prototype chưa thực hiện tool này. |
+| `chuyen_nhan_vien` | **Tự làm** khi báo đổi nhầm hoặc gặp ca ngoài thẩm quyền; chuyển được, sai chủ yếu tốn thời gian nhân viên. Thông báo chưa biết thời gian phản hồi. | Bắt duyệt thêm khi khách báo sai làm chậm khắc phục. |
+
+**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. **Ý kiến ban đầu từng thành viên: [nhóm bổ sung sau thảo luận; không ghi thay].**
+
+**Thử quy tắc:**
+
+| Ca | Sai có bị chặn? | Còn việc phải hỏi? | Chờ vô ích? |
+|---|---|---|---|
+| A | Có: chưa xác nhận thì không đổi | Hỏi chuyến và người; giữ tạm không phải đổi | Không chờ nhân viên; giữ chỉ 20 phút |
+| B | Có: không gửi khi thiếu thông tin/duyệt | Phải xác minh nơi, thời gian và xác nhận từng người | Có thể phải chờ nhân viên; cần thiết vì không thể rút hoàn |
+| Bình thường: hỏi chuyến còn chỗ | Chỉ đọc; không đổi | Không cần hỏi nếu chỉ liệt kê | Không phải chờ nhân viên |
+
+**Luật thêm:** tách đề xuất/giữ tạm khỏi đổi; kiểm tra lại đủ chỗ, thời hạn giữ và xác nhận chuyến + từng người tại thời điểm đổi. Nếu dữ liệu thay đổi, dừng và hỏi lại. Lời hứa chuyển từ “AI đổi giúp ngay” thành “AI giữ tạm và chỉ đổi sau khi bạn xác nhận rõ”.## §4. Mức tự chủ
+
+| Tool | Mức và giải thích cái giá | Phương án loại |
+|---|---|---|
+| `tra_cuu_dat_cho` | **Tự làm** trong đặt chỗ được chọn: chỉ đọc, sai thông tin làm khách hiểu nhầm nên ghi thời điểm dữ liệu. Chờ người sẽ mất thời gian tìm chỗ. | Duyệt mọi lần đọc gây chậm không cần thiết. |
+| `giu_cho_chuyen_moi` | **Tự làm có điều kiện**: giữ BM 201 cho cả hai tối đa 20 phút, thông báo ngay và cho bỏ giữ; giữ không đổi vé và tự hết hạn. Sai có thể chiếm chỗ tạm, khách có thể bỏ; chờ duyệt có thể mất chỗ. Chỉ một lựa chọn đủ chỗ, không tự tách trẻ. | Cấm giữ khiến khách gấp mất cơ hội; giữ vô hạn gây ảnh hưởng khách khác. |
+| `doi_chuyen_bay` | **Cần khách duyệt**: xem mã/giờ/chuyến, từng hành khách và mất lần đổi miễn phí; kiểm tra chỗ còn hiệu lực. Không xác nhận hoặc hết giữ thì không đổi. Sai khó đảo, khách lỡ chuyến; chờ có thể hết chỗ nên giữ tạm. | Tự đổi dù mơ hồ quá rủi ro; cấm hoàn toàn bắt mọi khách chờ nhân viên. |
+| `gui_yeu_cau_hoan_ve` | **Cần khách duyệt sau khi nhân viên xác minh** nơi nhận và thời gian; người duyệt thấy chuyến, hành khách, số tiền theo chính sách, cảnh báo không hủy được. Thiếu dữ liệu, quá hạn hoặc không xác nhận: không gửi, chuyển/giữ hồ sơ cho nhân viên. Sai không đảo được; chờ làm khách chậm nhận tiền. | Tự gửi không chặn được sai ý; cấm hoàn toàn từ chối quyền hoàn trong đề. Prototype chưa thực hiện tool này. |
+| `chuyen_nhan_vien` | **Tự làm** khi báo đổi nhầm hoặc gặp ca ngoài thẩm quyền; chuyển được, sai chủ yếu tốn thời gian nhân viên. Thông báo chưa biết thời gian phản hồi. | Bắt duyệt thêm khi khách báo sai làm chậm khắc phục. |
+
+**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. **Ý kiến ban đầu từng thành viên: [nhóm bổ sung sau thảo luận; không ghi thay].**
+
+**Thử quy tắc:**
+
+| Ca | Sai có bị chặn? | Còn việc phải hỏi? | Chờ vô ích? |
+|---|---|---|---|
+| A | Có: chưa xác nhận thì không đổi | Hỏi chuyến và người; giữ tạm không phải đổi | Không chờ nhân viên; giữ chỉ 20 phút |
+| B | Có: không gửi khi thiếu thông tin/duyệt | Phải xác minh nơi, thời gian và xác nhận từng người | Có thể phải chờ nhân viên; cần thiết vì không thể rút hoàn |
+| Bình thường: hỏi chuyến còn chỗ | Chỉ đọc; không đổi | Không cần hỏi nếu chỉ liệt kê | Không phải chờ nhân viên |
+
+**Luật thêm:** tách đề xuất/giữ tạm khỏi đổi; kiểm tra lại đủ chỗ, thời hạn giữ và xác nhận chuyến + từng người tại thời điểm đổi. Nếu dữ liệu thay đổi, dừng và hỏi lại. Lời hứa chuyển từ “AI đổi giúp ngay” thành “AI giữ tạm và chỉ đổi sau khi bạn xác nhận rõ”.## §4. Mức tự chủ
+
+| Tool | Mức và giải thích cái giá | Phương án loại |
+|---|---|---|
+| `tra_cuu_dat_cho` | **Tự làm** trong đặt chỗ được chọn: chỉ đọc, sai thông tin làm khách hiểu nhầm nên ghi thời điểm dữ liệu. Chờ người sẽ mất thời gian tìm chỗ. | Duyệt mọi lần đọc gây chậm không cần thiết. |
+| `giu_cho_chuyen_moi` | **Tự làm có điều kiện**: giữ BM 201 cho cả hai tối đa 20 phút, thông báo ngay và cho bỏ giữ; giữ không đổi vé và tự hết hạn. Sai có thể chiếm chỗ tạm, khách có thể bỏ; chờ duyệt có thể mất chỗ. Chỉ một lựa chọn đủ chỗ, không tự tách trẻ. | Cấm giữ khiến khách gấp mất cơ hội; giữ vô hạn gây ảnh hưởng khách khác. |
+| `doi_chuyen_bay` | **Cần khách duyệt**: xem mã/giờ/chuyến, từng hành khách và mất lần đổi miễn phí; kiểm tra chỗ còn hiệu lực. Không xác nhận hoặc hết giữ thì không đổi. Sai khó đảo, khách lỡ chuyến; chờ có thể hết chỗ nên giữ tạm. | Tự đổi dù mơ hồ quá rủi ro; cấm hoàn toàn bắt mọi khách chờ nhân viên. |
+| `gui_yeu_cau_hoan_ve` | **Cần khách duyệt sau khi nhân viên xác minh** nơi nhận và thời gian; người duyệt thấy chuyến, hành khách, số tiền theo chính sách, cảnh báo không hủy được. Thiếu dữ liệu, quá hạn hoặc không xác nhận: không gửi, chuyển/giữ hồ sơ cho nhân viên. Sai không đảo được; chờ làm khách chậm nhận tiền. | Tự gửi không chặn được sai ý; cấm hoàn toàn từ chối quyền hoàn trong đề. Prototype chưa thực hiện tool này. |
+| `chuyen_nhan_vien` | **Tự làm** khi báo đổi nhầm hoặc gặp ca ngoài thẩm quyền; chuyển được, sai chủ yếu tốn thời gian nhân viên. Thông báo chưa biết thời gian phản hồi. | Bắt duyệt thêm khi khách báo sai làm chậm khắc phục. |
+
+**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. **Ý kiến ban đầu từng thành viên: [nhóm bổ sung sau thảo luận; không ghi thay].**
+
+**Thử quy tắc:**
+
+| Ca | Sai có bị chặn? | Còn việc phải hỏi? | Chờ vô ích? |
+|---|---|---|---|
+| A | Có: chưa xác nhận thì không đổi | Hỏi chuyến và người; giữ tạm không phải đổi | Không chờ nhân viên; giữ chỉ 20 phút |
+| B | Có: không gửi khi thiếu thông tin/duyệt | Phải xác minh nơi, thời gian và xác nhận từng người | Có thể phải chờ nhân viên; cần thiết vì không thể rút hoàn |
+| Bình thường: hỏi chuyến còn chỗ | Chỉ đọc; không đổi | Không cần hỏi nếu chỉ liệt kê | Không phải chờ nhân viên |
+
+**Luật thêm:** tách đề xuất/giữ tạm khỏi đổi; kiểm tra lại đủ chỗ, thời hạn giữ và xác nhận chuyến + từng người tại thời điểm đổi. Nếu dữ liệu thay đổi, dừng và hỏi lại. Lời hứa chuyển từ “AI đổi giúp ngay” thành “AI giữ tạm và chỉ đổi sau khi bạn xác nhận rõ”.## §4. Mức tự chủ
+
+| Tool | Mức và giải thích cái giá | Phương án loại |
+|---|---|---|
+| `tra_cuu_dat_cho` | **Tự làm** trong đặt chỗ được chọn: chỉ đọc, sai thông tin làm khách hiểu nhầm nên ghi thời điểm dữ liệu. Chờ người sẽ mất thời gian tìm chỗ. | Duyệt mọi lần đọc gây chậm không cần thiết. |
+| `giu_cho_chuyen_moi` | **Tự làm có điều kiện**: giữ BM 201 cho cả hai tối đa 20 phút, thông báo ngay và cho bỏ giữ; giữ không đổi vé và tự hết hạn. Sai có thể chiếm chỗ tạm, khách có thể bỏ; chờ duyệt có thể mất chỗ. Chỉ một lựa chọn đủ chỗ, không tự tách trẻ. | Cấm giữ khiến khách gấp mất cơ hội; giữ vô hạn gây ảnh hưởng khách khác. |
+| `doi_chuyen_bay` | **Cần khách duyệt**: xem mã/giờ/chuyến, từng hành khách và mất lần đổi miễn phí; kiểm tra chỗ còn hiệu lực. Không xác nhận hoặc hết giữ thì không đổi. Sai khó đảo, khách lỡ chuyến; chờ có thể hết chỗ nên giữ tạm. | Tự đổi dù mơ hồ quá rủi ro; cấm hoàn toàn bắt mọi khách chờ nhân viên. |
+| `gui_yeu_cau_hoan_ve` | **Cần khách duyệt sau khi nhân viên xác minh** nơi nhận và thời gian; người duyệt thấy chuyến, hành khách, số tiền theo chính sách, cảnh báo không hủy được. Thiếu dữ liệu, quá hạn hoặc không xác nhận: không gửi, chuyển/giữ hồ sơ cho nhân viên. Sai không đảo được; chờ làm khách chậm nhận tiền. | Tự gửi không chặn được sai ý; cấm hoàn toàn từ chối quyền hoàn trong đề. Prototype chưa thực hiện tool này. |
+| `chuyen_nhan_vien` | **Tự làm** khi báo đổi nhầm hoặc gặp ca ngoài thẩm quyền; chuyển được, sai chủ yếu tốn thời gian nhân viên. Thông báo chưa biết thời gian phản hồi. | Bắt duyệt thêm khi khách báo sai làm chậm khắc phục. |
+
+**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. **Ý kiến ban đầu từng thành viên: [nhóm bổ sung sau thảo luận; không ghi thay].**
+
+**Thử quy tắc:**
+
+| Ca | Sai có bị chặn? | Còn việc phải hỏi? | Chờ vô ích? |
+|---|---|---|---|
+| A | Có: chưa xác nhận thì không đổi | Hỏi chuyến và người; giữ tạm không phải đổi | Không chờ nhân viên; giữ chỉ 20 phút |
+| B | Có: không gửi khi thiếu thông tin/duyệt | Phải xác minh nơi, thời gian và xác nhận từng người | Có thể phải chờ nhân viên; cần thiết vì không thể rút hoàn |
+| Bình thường: hỏi chuyến còn chỗ | Chỉ đọc; không đổi | Không cần hỏi nếu chỉ liệt kê | Không phải chờ nhân viên |
+
+**Luật thêm:** tách đề xuất/giữ tạm khỏi đổi; kiểm tra lại đủ chỗ, thời hạn giữ và xác nhận chuyến + từng người tại thời điểm đổi. Nếu dữ liệu thay đổi, dừng và hỏi lại. Lời hứa chuyển từ “AI đổi giúp ngay” thành “AI giữ tạm và chỉ đổi sau khi bạn xác nhận rõ”.
+| Ca | Sai có bị chặn? | Còn việc phải hỏi? | Chờ vô ích? |
+|---|---|---|---|
+| A | Có: chưa xác nhận thì không đổi | Hỏi chuyến và người; giữ tạm không phải đổi | Không chờ nhân viên; giữ chỉ 20 phút |
+| B | Có: không gửi khi thiếu thông tin/duyệt | Phải xác minh nơi, thời gian và xác nhận từng người | Có thể phải chờ nhân viên; cần thiết vì không thể rút hoàn |
+| Bình thường: hỏi chuyến còn chỗ | Chỉ đọc; không đổi | Không cần hỏi nếu chỉ liệt kê | Không phải chờ nhân viên |
+
+**Luật thêm:** tách đề xuất/giữ tạm khỏi đổi; kiểm tra lại đủ chỗ, thời hạn giữ và xác nhận chuyến + từng người tại thời điểm đổi. Nếu dữ liệu thay đổi, dừng và hỏi lại. Lời hứa chuyển từ “AI đổi giúp ngay” thành “AI giữ tạm và chỉ đổi sau khi bạn xác nhận rõ”. xác minh nơi, thời gian và xác nhận từng người | Có thể phải chờ nhân viên; cần thiết vì không thể rút hoàn |
+| Bình thường: hỏi chuyến còn chỗ | Chỉ đọc; không đổi | Không cần hỏi nếu chỉ liệt kê | Không phải chờ nhân viên |
+
+**Luật thêm:** tách đề xuất/giữ tạm khỏi đổi; kiểm tra lại đủ chỗ, thời hạn giữ và xác nhận chuyến + từng người tại thời điểm đổi. Nếu dữ liệu thay đổi, dừng và hỏi lại. Lời hứa chuyển từ “AI đổi giúp ngay” thành “AI giữ tạm và chỉ đổi sau khi bạn xác nhận rõ”.
 
 ## §5. Prototype  (chặng 5)
 - Link hoặc file · công cụ · phần nào mock · có lời gọi AI thật không.
