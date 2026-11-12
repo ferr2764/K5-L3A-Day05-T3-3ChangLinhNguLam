@@ -98,5 +98,28 @@ Cách nhóm chốt: Tự giữ tạm thời một chuyến đủ 2 chỗ (BM 201
 Đánh giá trên thiết kế/mô phỏng, chưa phải kiểm thử hệ thống thật. Hạn chế còn lại: chưa có giao diện xác minh và duyệt hoàn, kiểm tra tồn chỗ thật hay tiếp nhận nhân viên thật.
 
 ## §7. Demo
-- Ca lạ nhận được ở demo: prototype đã làm gì, và nhóm có đổi ý gì sau ca đó không.
-```
+“Chuyến BM 213 Hà Nội – TP.HCM bị hủy do bão. Đặt chỗ có hai hành khách: Nguyễn Minh An và bé Nguyễn Gia Bình. Khách nhắn: **‘Chuyến bị hủy rồi, đổi đi.’** Câu này chưa nói rõ chuyến thay thế và người cần đổi.”
+
+1. Mở [prototype](prototype/index.html). Chỉ danh sách chuyến và căn cứ **①**: BM 217 chỉ còn một chỗ; BM 201 là chuyến sớm nhất đủ chỗ cho cả hai.
+2. Chỉ câu AI hỏi lại **②** và trạng thái giữ tạm **③**. Giải thích: giữ chỗ trong mô phỏng 20 phút chưa phải đổi vé; khách có thể bỏ giữ. Nếu hết giờ, không thể xác nhận đổi từ lượt giữ này.
+3. Bấm **“Xem trước đổi BM 201 cho cả hai”**. Chỉ phần **④** hiển thị chuyến, giờ, hai hành khách và cảnh báo dùng lần đổi miễn phí duy nhất. Nếu chưa tích xác nhận, nút đổi không thực hiện đổi.
+4. Tích xác nhận, bấm **“Xác nhận đổi vé”**, rồi bấm **“Báo đổi nhầm”**. Giải thích: đây là kết quả mô phỏng; hệ thống chuyển nhân viên trong mô phỏng và không hứa hoàn tác vì lần đổi miễn phí đã dùng và chỗ khác có thể không còn.
+5. Nói rõ mức tự chủ: AI được tự tra cứu và giữ tạm có điều kiện; đổi vé phải có khách xác nhận; trường hợp không chắc hoàn tác được thì chuyển nhân viên.
+
+### 2. Các ca chat giả lập bổ sung
+
+Cuộn xuống **“Trò chuyện với khách hàng”**, chọn hồ sơ trong danh sách và bấm câu hỏi gợi ý. Mỗi hồ sơ độc lập với ca chính; chat trả lời theo từ khóa, không thực sự giữ chỗ, đổi vé, gửi hoàn hoặc chuyển nhân viên thật.
+
+| Hồ sơ và câu khách nói | Cách demo và kết quả mong đợi |
+|---|---|
+| **Khách đi một mình – Trần Lan Anh:** “Chuyến sớm nhất còn chỗ?” | Chọn hồ sơ, bấm câu gợi ý. Chat nêu BM 217 lúc 21:00 còn một chỗ, đủ cho một người, và nói chưa giữ hoặc đổi vé. |
+| **Khách đi cùng trẻ nhỏ – Lê Minh và bé Mai:** “Có chuyến nào cho cả hai?” | Chat cho biết BM 217 không đủ hai chỗ, đề xuất BM 201 lúc 07:00 còn chỗ và hỏi lại; chưa tự đổi. Có thể thử tiếp “Cho bé đi một mình” để thấy hướng chuyển nhân viên. |
+| **Khách tìm hiểu hoàn vé – Phạm Hoàng Nam:** “Tôi muốn hoàn vé.” | Chat cảnh báo yêu cầu hoàn đã gửi không thể hủy; nơi nhận và thời gian hoàn chưa có trong dữ liệu dựng, cần nhân viên kiểm tra. Không có yêu cầu hoàn thật được gửi. |
+| **Cần bay tối cùng con – Vũ Thảo và bé Bảo:** “Tôi và con cần bay tối nay, còn chuyến nào không?” | Chat nêu BM 217 tối nay chỉ còn một chỗ, không đủ cho cả hai; đề xuất BM 201 sáng hôm sau, chưa giữ hay đổi vé. |
+| **Hỏi bồi thường do bão – Đỗ Khánh Linh:** “Chuyến bị hủy vì bão thì tôi được bồi thường bao nhiêu?” | Chat nêu chính sách Bay Mẫu dựng: không bồi thường tiền mặt do thời tiết; có thể tìm hiểu đổi miễn phí một lần hoặc hoàn toàn bộ. |
+| **Chọn nhầm chuyến 9:30 – Nguyễn Thu Hà:** “Tôi lỡ chọn nhầm chuyến 9:30, đổi lại chuyến 7:00 ngay giúp tôi.” | Chat hỏi khách mới chọn hay đã xác nhận đổi. Bấm **“Tôi mới chọn, chưa xác nhận đổi”** để xem hướng quay lại chọn; hoặc **“Tôi đã xác nhận đổi vé”** để xem hướng chuyển nhân viên và không hứa hoàn tác. |
+
+### 3. Ca lạ và phân công
+
+Khi TA hoặc nhóm bạn đưa ca lạ, đối chiếu dữ liệu và mức tự chủ ở §4: xác định khách muốn gì, đủ căn cứ chưa, việc nào được tự làm và việc nào cần xác nhận hoặc chuyển nhân viên. Nếu chat không nhận diện câu hỏi, nhóm giải thích đường xử lý bằng lời; không giả vờ chat hiểu hay đã thực hiện giao dịch.
+
