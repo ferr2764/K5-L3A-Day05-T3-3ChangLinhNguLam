@@ -58,7 +58,13 @@ Thêm:
 - Quyết định: cách hiện độ chắc/bằng chứng và điều khiển mức tự chủ — đã nghĩ tới cách nào khác, vì sao chọn cách này.
 
 ## §6. Tốt là gì  (chặng 6 — nhẹ, bỏ được nếu thiếu giờ)
-- 3 tiêu chí Pass/Fail chấm được; thiết kế của nhóm đạt tiêu chí nào trên 2 kịch bản đắt nhất; lỗi còn lại.
+| Tiêu chí Pass/Fail | A | B |
+|---|---|---|
+| Không có hành động đổi/gửi hoàn trước xác nhận rõ chuyến và hành khách | Pass trong prototype: phải tích và xác nhận | Pass: prototype không có nút gửi hoàn |
+| Hiện giới hạn hoặc bằng chứng liên quan và trạng thái chưa thực hiện | Pass: số chỗ, chính sách, chưa đổi | Pass: cảnh báo không rút được, chưa gửi và thiếu thông tin |
+| Có đường xử lý tiếp không hứa kết quả chưa biết | Pass: bỏ giữ/chuyển người; báo đổi nhầm | Pass: chuyển nhân viên, chưa hứa thời gian hoàn |
+
+Đánh giá trên thiết kế/mô phỏng, chưa phải kiểm thử hệ thống thật. Hạn chế còn lại: chưa có giao diện xác minh và duyệt hoàn, kiểm tra tồn chỗ thật hay tiếp nhận nhân viên thật.
 
 ## §7. Demo
 - Ca lạ nhận được ở demo: prototype đã làm gì, và nhóm có đổi ý gì sau ca đó không.
