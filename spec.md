@@ -37,13 +37,10 @@
 **Chọn A và B:** A có thể tiêu tốn lần đổi duy nhất cho sai người/chuyến; B có thể gửi yêu cầu không rút được, dẫn đến mất lựa chọn đổi và chờ hoàn tiền. C suýt được chọn vì có thể tách hai hành khách; nhóm ưu tiên A vì bao trùm rủi ro chọn sai chuyến/người ngay ở bước xác nhận, và dùng C làm kiểm tra bổ sung. G cũng nghiêm trọng; được đưa vào đường sửa lỗi trong prototype.
 
 ## §3. Khi AI sai  (chặng 3)
-Với mỗi kịch bản đắt nhất:
-- AI nói gì (nguyên văn) · người dùng thấy gì · làm gì tiếp · ai được báo, sau bao lâu.
-- Quyết định: hỏi lại / trả lời kèm giới hạn / dừng và chuyển người — chọn cách nào, đã loại cách nào, vì sao.
-- Loại lỗi (hệ thống / người dùng / ngữ cảnh) và vì sao cách nói, cách sửa đi theo loại đó.
-- 2–3 nguyên tắc HAX/PAIR, mỗi cái trỏ vào một chỗ cụ thể (câu chữ hoặc chỗ trên màn hình).
-- Lỗi nào sửa câu chữ không cứu được (nếu có), và thiết kế cứu nó thế nào.
-
+- **Lời AI:** “Mình chưa biết bạn muốn chọn chuyến nào và đổi cho ai. BM 201 là chuyến sớm nhất đủ chỗ cho cả hai. Mình tạm giữ 2 chỗ trong 20 phút; vé chưa được đổi. Bạn muốn đổi sang chuyến nào và cho những ai?”
+- **Thấy và làm tiếp:** danh sách giờ/chỗ, căn cứ chính sách, trạng thái giữ và đếm ngược; xem trước BM 201, kiểm tra tên và xác nhận, bỏ giữ hoặc gặp nhân viên. Hết giờ thì tự nhả và khóa xác nhận đổi cho tới khi kiểm tra lại.
+- **Ai được báo:** không tự báo nhân viên chỉ vì câu mơ hồ; khi khách bấm chuyển hoặc báo đổi nhầm, gửi yêu cầu ngay cùng đặt chỗ, lựa chọn và trạng thái. Thời gian phản hồi chưa xác định.
+- **Quyết định:** hỏi lại và tạm giữ có thể đảo. Loại tự đổi vì “đổi đi” chưa xác định đủ; loại chờ nhân viên cho mọi yêu cầu vì có thể hết chỗ. Đây là **lỗi ngữ cảnh** nếu hệ thống hiểu câu chung như chỉ thị cụ thể: không đổ lỗi cho khách; cần cổng xác nhận, không chỉ thêm lời xin lỗi.
 ## §4. Mức tự chủ  (chặng 4)
 Với mỗi tool:
 - Mức của nhóm (tự làm / cần người duyệt / cấm). Nếu cần người duyệt: ai duyệt · người duyệt thấy gì · quá hạn thì sao.
