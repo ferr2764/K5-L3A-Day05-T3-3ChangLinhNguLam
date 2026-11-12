@@ -62,7 +62,14 @@ Ba việc không làm: (1) tự đổi tên hành khách vì ngoài thẩm quy�
 | `gui_yeu_cau_hoan_ve` | **Cần khách duyệt sau khi nhân viên xác minh** nơi nhận và thời gian; người duyệt thấy chuyến, hành khách, số tiền theo chính sách, cảnh báo không hủy được. Thiếu dữ liệu, quá hạn hoặc không xác nhận: không gửi, chuyển/giữ hồ sơ cho nhân viên. Sai không đảo được; chờ làm khách chậm nhận tiền. | Tự gửi không chặn được sai ý; cấm hoàn toàn từ chối quyền hoàn trong đề. Prototype chưa thực hiện tool này. |
 | `chuyen_nhan_vien` | **Tự làm** khi báo đổi nhầm hoặc gặp ca ngoài thẩm quyền; chuyển được, sai chủ yếu tốn thời gian nhân viên. Thông báo chưa biết thời gian phản hồi. | Bắt duyệt thêm khi khách báo sai làm chậm khắc phục. |
 
-**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. **Ý kiến ban đầu từng thành viên: [nhóm bổ sung sau thảo luận; không ghi thay].**
+**Tool khó xếp nhất:** `giu_cho_chuyen_moi`. Chọn tự giữ có thời hạn để tránh mất chỗ trong A; nhược điểm là chiếm chỗ tạm nếu khách định đi chuyến khác. Chọn chờ khách thì không chiếm nhầm nhưng chỗ có thể hết. Chốt tự giữ một phương án đủ cho cả hai, hiện rõ và cho hủy, tối đa 20 phút. 
+
+Ý kiến ban đầu từng thành viên về giu_cho_chuyen_moi:
+- Thành viên 1 - Tú — tự giữ chỗ tạm: Nếu chờ khách chọn xong, chuyến đủ chỗ có thể hết. Tool chỉ giữ 20 phút và tự nhả, nên có thể giữ BM 201 cho cả An và Bình, đồng thời báo rõ vé chưa được đổi.
+- Thành viên 2 - Hiếu — hỏi khách trước khi giữ: Câu “đổi đi” chưa cho biết khách muốn chuyến nào. Tự giữ BM 201 có thể chiếm chỗ không đúng nhu cầu, nên đề xuất hỏi lại và chỉ giữ sau khi khách chọn.
+- Thành viên 3 - Hoàng — cân nhắc chuyển nhân viên: Khách đi cùng trẻ 5 tuổi và có thể cần đến nơi gấp. Muốn nhân viên kiểm tra lựa chọn trước, nhưng nhận thấy chờ nhân viên cho mọi ca có nguy cơ làm hết chỗ.
+  
+Cách nhóm chốt: Tự giữ tạm thời một chuyến đủ 2 chỗ (BM 201), hiện đồng hồ 20 phút và nút bỏ giữ; nói rõ đây chỉ là giữ chỗ, không đổi vé. Khách chọn chuyến khác thì nhả chỗ cũ. Trước khi gọi doi_chuyen_bay, kiểm tra lại chỗ và yêu cầu khách xác nhận rõ chuyến cùng tên từng hành khách. Nhóm chọn cách này vì giảm nguy cơ mất chỗ trong lúc hỏi lại, còn việc giữ sai có thể huỷ hoặc tự hết hạn.
 
 **Thử quy tắc:**
 
