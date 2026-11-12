@@ -11,9 +11,9 @@
 
 | Họ và Tên | Mã Học Viên | Việc đã làm |
 |---|---|---|
-| Võ Huy Hoàng | 2A202603397  |  |
-| Trần Anh Tú | 2A202603368  |  |
-| Nguyễn Tuấn Hiếu | 2A202603374 |  |
+| Võ Huy Hoàng | 2A202603397  | Phần 2 + 6  |
+| Trần Anh Tú | 2A202603368  | Phần 1 + 4  |
+| Nguyễn Tuấn Hiếu | 2A202603374 | Phần 3 + 5  |
 
 ## §1. Lát cắt & phạm vi
 
