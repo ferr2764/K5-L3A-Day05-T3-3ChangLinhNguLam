@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hỗ trợ đổi chuyến · Bản thử</title>
+    <style>
+        :root {
+            font-family: system-ui, sans-serif;
+            color: #17304a;
+            background: #f2f6fa
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0
+        }
+
+        header {
+            background: #113652;
+            color: white;
+            padding: 18px max(5%, calc((100% - 1100px)/2));
+            font-weight: 700
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 32px auto;
+            padding: 0 20px
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center
+        }
+
+        .badge {
+            background: #fff1d8;
+            color: #8c5200;
+            border-radius: 20px;
+            padding: 7px 12px;
+            font-size: 13px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 20px;
+            margin-top: 24px
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #dce6ed;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 6px 24px #17304a08
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 8px 0
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 0 0 16px
+        }
+
+        p {
+            line-height: 1.55
+        }
+
+        .muted {
+            color: #5e7485;
+            font-size: 14px
+        }
+
+        .tag {
+            font-size: 12px;
+            color: #107563;
+            font-weight: 700
+        }
+
+        .flight {
+            border-top: 1px solid #e5edf2;
+            padding: 15px 0
+        }
+
+        .flight strong {
+            font-size: 18px
+        }
+
+        .notice {
+            background: #fff7e9;
+            border-left: 4px solid #e4a33e;
+            padding: 12px;
+            border-radius: 5px;
+            line-height: 1.5
+        }
+
+        .chat {
+            background: #edf6fb;
+            border-radius: 12px;
+            padding: 15px;
+            line-height: 1.55
+        }
+
+        .number {
+            display: inline-grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #126eaa;
+            color: white;
+            font-size: 12px;
+            width: 23px;
+            height: 23px;
+            margin-right: 7px
+        }
+
+        button {
+            border: 0;
+            border-radius: 9px;
+            padding: 12px 16px;
+            font: inherit;
+            font-weight: 650;
+            cursor: pointer;
+            margin: 6px 6px 0 0
+        }
+
+        button:focus-visible {
+            outline: 3px solid orange
+        }
+
+        .primary {
+            background: #087caf;
+            color: white
+        }
+
+        .secondary {
+            background: #eaf2f6;
+            color: #174760
+        }
+
+        .danger {
+            background: #fff2ed;
+            color: #a13e21
+        }
+
+        .controls {
+            margin-top: 15px
+        }
+
+        .status {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #e9f6ef;
+            color: #1d6545
+        }
+
+        .hidden {
+            display: none
+        }
+
+        footer {
+            font-size: 12px;
+            color: #718697;
+            margin: 20px 0
+        }
+
+        @media(max-width:700px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .top {
+                display: block
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>✈ &nbsp; ĐẶT CHỖ CỦA TÔI <span style="float:right;font-weight:400;font-size:13px">BẢN THỬ · DỮ LIỆU
+            GIẢ</span></header>
+    <main>
+        <div class="top">
+            <div>
+                <div class="tag">HỖ TRỢ HÀNH TRÌNH</div>
+                <h1>Cùng tìm chuyến phù hợp</h1>
+                <div class="muted">Đặt chỗ TRV-7Q2K · Hà Nội → TP.HCM</div>
+            </div><span class="badge">BM 213 đã hủy do thời tiết</span>
+        </div>
+        <div class="grid">
+            <section class="card">
+                <h2>Chuyến bay thay thế</h2>
+                <p class="muted">Nguyễn Minh An · Nguyễn Gia Bình (5 tuổi)<br>Dữ liệu dựng tại 15:00, 12/11/2026</p>
+                <div class="flight"><strong>21:00</strong> · 12/11 &nbsp; BM 217<br><span class="muted">Còn 1 chỗ ·
+                        Không đủ cho 2 hành khách</span></div>
+                <div class="flight"><strong>07:00</strong> · 13/11 &nbsp; BM 201<br><span class="muted">Còn 9 chỗ · Sớm
+                        nhất đủ chỗ cho cả hai</span></div>
+                <div class="flight"><strong>09:30</strong> · 13/11 &nbsp; BM 205<br><span class="muted">Còn 4 chỗ · Đủ
+                        cho cả hai</span></div>
+                <div class="notice"><span class="number">1</span><b>Căn cứ:</b> Bay Mẫu cho đổi miễn phí một lần trong
+                    48 giờ hoặc hoàn toàn bộ. Hủy do thời tiết không có bồi thường tiền mặt.</div>
+            </section>
+            <section class="card">
+                <h2>Trợ lý hành trình <span class="muted">· Bạn đang trao đổi với AI</span></h2>
+                <p class="muted">Khách: “Chuyến bị hủy rồi, đổi đi.”</p>
+                <div class="chat"><span class="number">2</span><b>Trợ lý:</b> Mình chưa biết bạn muốn chọn chuyến nào và
+                    đổi cho ai. BM 201 là chuyến sớm nhất đủ chỗ cho cả hai. Mình tạm giữ 2 chỗ trong 20 phút; vé chưa
+                    được đổi. Bạn muốn đổi sang chuyến nào và cho những ai?</div>
+                <div id="hold" class="status" role="status"><span class="number">3</span><b>Đang giữ BM 201 cho cả
+                        hai</b> · còn <span id="timer">20:00</span><br><small>Giữ chỗ không phải là đổi vé.</small>
+                </div>
+                <div class="controls" id="initial"><button class="primary" id="review">Xem trước đổi BM 201 cho cả
+                        hai</button><button class="secondary" id="release">Bỏ giữ chỗ</button><button class="secondary"
+                        id="agent">Chuyển nhân viên</button></div>
+                <div id="reviewPanel" class="hidden">
+                    <p class="notice"><span class="number">4</span><b>Kiểm tra trước khi đổi</b><br>BM 201 · 07:00 ngày
+                        13/11 · Nguyễn Minh An và Nguyễn Gia Bình.<br>Đổi miễn phí một lần duy nhất; sau khi đổi có thể
+                        khó quay lại chuyến khác.</p><label><input type="checkbox" id="confirm"> Tôi xác nhận chuyến và
+                        cả hai hành khách ở trên.</label>
+                    <div><button class="primary" id="change">Xác nhận đổi vé</button><button class="secondary"
+                            id="back">Quay lại</button></div>
+                </div>
+                <div id="result" class="hidden status" role="status"></div>
+                <div id="after" class="hidden"><button class="danger" id="wrong">Báo đổi nhầm</button></div>
+                <p class="muted">Cần hoàn vé? Yêu cầu hoàn đã gửi không thể hủy. Thời gian và nơi nhận tiền chưa có
+                    trong dữ liệu đặt chỗ; hãy gặp nhân viên trước khi quyết định.</p>
+            </section>
+        </div>
+        <footer>Đây là mô phỏng học tập, không kết nối hãng bay, không tạo đặt chỗ hay giao dịch thật.</footer>
+    </main>
+    <script>
+        let seconds = 1200, active = true; const $ = id => document.getElementById(id); const tick = setInterval(() => { if (!active) return; seconds--; $('timer').textContent = String(Math.floor(seconds / 60)).padStart(2, '0') + ':' + String(seconds % 60).padStart(2, '0'); if (seconds <= 0) { clearInterval(tick); active = false; $('hold').innerHTML = 'Giữ chỗ đã hết hạn. Vé chưa đổi; vui lòng chuyển nhân viên để kiểm tra lại.'; $('reviewPanel').classList.add('hidden'); $('review').disabled = true } }, 1000); $('review').onclick = () => { if (active) { $('initial').classList.add('hidden'); $('reviewPanel').classList.remove('hidden') } }; $('back').onclick = () => { $('reviewPanel').classList.add('hidden'); $('initial').classList.remove('hidden'); $('confirm').checked = false }; $('release').onclick = () => { active = false; clearInterval(tick); $('hold').textContent = 'Đã bỏ giữ chỗ. Vé chưa được đổi.'; $('review').disabled = true }; $('agent').onclick = () => { $('result').classList.remove('hidden'); $('result').textContent = 'Đã chuyển yêu cầu cho nhân viên ngay trong mô phỏng, kèm đặt chỗ và trạng thái giữ chỗ. Thời gian phản hồi chưa xác định.' }; $('change').onclick = () => { if (!$('confirm').checked) { alert('Vui lòng xác nhận đúng chuyến và cả hai hành khách.'); return } if (!active) return; active = false; clearInterval(tick); $('hold').textContent = 'Giữ chỗ đã kết thúc sau khi đổi (mô phỏng).'; $('reviewPanel').classList.add('hidden'); $('result').classList.remove('hidden'); $('result').textContent = 'Đã đổi mô phỏng sang BM 201 cho cả hai. Lần đổi miễn phí đã được sử dụng.'; $('after').classList.remove('hidden') }; $('wrong').onclick = () => { $('result').textContent = 'Đã báo đổi nhầm và chuyển nhân viên ngay trong mô phỏng. Lần đổi miễn phí đã dùng; chưa thể đảm bảo hoàn tác. Nhân viên sẽ kiểm tra phương án còn lại.' };
+        if (location.search === "?xem-xac-nhan") $("review").click();</script>
+</body>
+
+</html>
