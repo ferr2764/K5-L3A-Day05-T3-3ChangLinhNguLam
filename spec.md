@@ -4,12 +4,20 @@
 >
 > **Một quyết định = bốn ý:** đã cân nhắc phương án nào · chọn phương án nào · vì sao · loại các phương án kia vì sao. Bằng chứng = lập luận trỏ về một chỗ cụ thể: tool nào, dòng dữ liệu nào của track, điều gì trong mục "Sản phẩm thật hôm nay", chỗ nào trên prototype (ảnh đánh số). Không chạy agent.
 
-```markdown
+
 # Bài nộp LAB5 — [Track] · Nhóm [tên]
-[Danh sách thành viên và việc mỗi người làm — copy bảng từ README]
+
+**Lớp:** Lab2A H209 · **Bàn / zone:** B2 · **Track:** T3
+
+| Họ và Tên | Mã Học Viên | Việc đã làm |
+|---|---|---|
+| Võ Huy Hoàng | 2A202603397  |  |
+| Trần Anh Tú | 2A202603368  |  |
+| Nguyễn Tuấn Hiếu | 2A202603374 |  |
 
 ## §1. Lát cắt & phạm vi
-- Lát cắt (chép từ track).
+- Lát cắt: Trong **Đặt chỗ của tôi**, khi **hành khách** vừa nhận tin chuyến bay bị huỷ và nhắn hỏi, **AI đề xuất và giữ chỗ chuyến thay thế, hỏi lại cho rõ, đổi vé, hay chuyển nhân viên**, để khách tới nơi kịp mà không mất vé hay tiền vì một thao tác không đảo lại được.
+
 - 3 việc tính năng KHÔNG làm, mỗi việc một câu vì sao.
 
 ## §2. Kịch bản rủi ro  (chặng 2)
