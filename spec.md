@@ -40,10 +40,21 @@ Ba việc không làm: (1) tự đổi tên hành khách vì ngoài thẩm quy�
 **Chọn A và B:** A có thể tiêu tốn lần đổi duy nhất cho sai người/chuyến; B có thể gửi yêu cầu không rút được, dẫn đến mất lựa chọn đổi và chờ hoàn tiền. C suýt được chọn vì có thể tách hai hành khách; nhóm ưu tiên A vì bao trùm rủi ro chọn sai chuyến/người ngay ở bước xác nhận, và dùng C làm kiểm tra bổ sung. G cũng nghiêm trọng; được đưa vào đường sửa lỗi trong prototype.
 
 ## §3. Khi AI sai  (chặng 3)
+### A — Xác nhận mơ hồ
+
 - **Lời AI:** “Mình chưa biết bạn muốn chọn chuyến nào và đổi cho ai. BM 201 là chuyến sớm nhất đủ chỗ cho cả hai. Mình tạm giữ 2 chỗ trong 20 phút; vé chưa được đổi. Bạn muốn đổi sang chuyến nào và cho những ai?”
 - **Thấy và làm tiếp:** danh sách giờ/chỗ, căn cứ chính sách, trạng thái giữ và đếm ngược; xem trước BM 201, kiểm tra tên và xác nhận, bỏ giữ hoặc gặp nhân viên. Hết giờ thì tự nhả và khóa xác nhận đổi cho tới khi kiểm tra lại.
 - **Ai được báo:** không tự báo nhân viên chỉ vì câu mơ hồ; khi khách bấm chuyển hoặc báo đổi nhầm, gửi yêu cầu ngay cùng đặt chỗ, lựa chọn và trạng thái. Thời gian phản hồi chưa xác định.
 - **Quyết định:** hỏi lại và tạm giữ có thể đảo. Loại tự đổi vì “đổi đi” chưa xác định đủ; loại chờ nhân viên cho mọi yêu cầu vì có thể hết chỗ. Đây là **lỗi ngữ cảnh** nếu hệ thống hiểu câu chung như chỉ thị cụ thể: không đổ lỗi cho khách; cần cổng xác nhận, không chỉ thêm lời xin lỗi.
+
+### B — Yêu cầu hoàn không rút lại được
+
+- **Lời AI:** “Yêu cầu hoàn sau khi gửi không thể hủy. Mình chưa có thông tin xác thực về nơi nhận và thời gian hoàn cho đặt chỗ này. Mình sẽ chuyển nhân viên kiểm tra trước khi bạn quyết định; hiện chưa gửi yêu cầu hoàn.”
+- **Thấy và làm tiếp:** cảnh báo không đảo được, trạng thái chưa gửi, nút chuyển nhân viên; khi nhân viên xác minh đủ, khách xem rõ hành khách, nơi nhận, thời gian dự kiến và xác nhận riêng. Nếu chưa đủ thông tin hoặc không xác nhận thì không gửi.
+- **Ai được báo:** nhân viên nhận yêu cầu ngay khi khách chọn chuyển; chưa cam kết thời gian phản hồi. Không báo đã hoàn hay đảm bảo kết quả.
+- **Quyết định:** dừng và chuyển người vì fixture không nêu thời gian/nơi nhận tiền cụ thể; loại gửi ngay vì không thể rút, loại tự đoán theo trường hợp khác vì có thể sai. Đây là **giới hạn dữ liệu hệ thống**: nói rõ chưa biết, không quy trách nhiệm khách. Prototype minh họa cảnh báo và chuyển người, chưa mô phỏng bước xác minh/duyệt hoàn.
+
+**HAX/PAIR và vị trí:** G11 giải thích vì sao → ① căn cứ chính sách và danh sách số chỗ; G10 thu hẹp khi nghi ngờ → ② hỏi lại, chưa đổi; G9 sửa dễ dàng → ③ bỏ giữ, ④ quay lại và báo đổi nhầm. Với G, lời xin lỗi không thể khôi phục lần đổi hay bảo đảm chỗ: thiết kế ngăn đổi trước xác nhận và chuyển nhân viên ngay khi báo nhầm; không hứa hoàn tác đã xác nhận.
 ## §4. Mức tự chủ
 
 | Tool | Mức và giải thích cái giá | Phương án loại |
@@ -187,9 +198,11 @@ Ba việc không làm: (1) tự đổi tên hành khách vì ngoài thẩm quy�
 **Luật thêm:** tách đề xuất/giữ tạm khỏi đổi; kiểm tra lại đủ chỗ, thời hạn giữ và xác nhận chuyến + từng người tại thời điểm đổi. Nếu dữ liệu thay đổi, dừng và hỏi lại. Lời hứa chuyển từ “AI đổi giúp ngay” thành “AI giữ tạm và chỉ đổi sau khi bạn xác nhận rõ”.
 
 ## §5. Prototype  (chặng 5)
-- Link hoặc file · công cụ · phần nào mock · có lời gọi AI thật không.
-- 1–2 ảnh có đánh số; mỗi số: thể hiện gì · nguyên tắc HAX/PAIR nào · mức tự chủ nào.
-- Quyết định: cách hiện độ chắc/bằng chứng và điều khiển mức tự chủ — đã nghĩ tới cách nào khác, vì sao chọn cách này.
+- [Mở prototype](prototype/index.html), HTML/CSS/JavaScript, chạy tại máy; dữ liệu, hành động, chuyển nhân viên và kết quả đều mô phỏng; **không gọi AI thật**.
+- ① G11: căn cứ chính sách và dữ liệu chỗ ở cột trái. ② G10: câu hỏi khi chưa rõ, chưa đổi. ③ G9: trạng thái tự giữ, đồng hồ và nút bỏ giữ. ④ G9: màn xác nhận, quay lại; sau đổi có báo đổi nhầm.
+- Chọn hiển thị căn cứ cụ thể thay vì phần trăm độ tin cậy giả; chọn bảng xác nhận chuyến và tên thay vì nút đổi ngay vì hậu quả khó đảo. Nút báo đổi nhầm chuyển nhân viên, không giả vờ hoàn tác được.
+- **Ảnh đánh số:** [Tình huống và giữ chỗ](prototype/01-tinh-huong.png) thể hiện ①–③; [xác nhận đổi vé](prototype/02-xac-nhan.png) thể hiện ④.
+- Giới hạn: đây là kịch bản dựng; chưa có truy vấn chỗ thực tế hay xác minh hoàn tiền. Bộ đếm chỉ chạy khi trang mở và dữ liệu không đồng bộ máy chủ.
 
 ## §6. Tốt là gì  (chặng 6 — nhẹ, bỏ được nếu thiếu giờ)
 | Tiêu chí Pass/Fail | A | B |
